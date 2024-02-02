@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   description: "Frames",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1.0,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
