@@ -1,34 +1,44 @@
-import { getFrameMetadata } from "@coinbase/onchainkit";
-import type { Metadata } from "next";
+import {
+  FrameContainer,
+  FrameImage,
+  FrameButton,
+  useFramesReducer,
+  getPreviousFrame,
+  validateActionSignature,
+} from "frames.js/next/server";
 
-const NEXT_PUBLIC_URL = "https://frames-iota.vercel.app";
+const reducer = (state: any) => ({ count: state.count + 1 });
 
-const frameMetadata = getFrameMetadata({
-  buttons: [
-    {
-      label: "Click me",
-    },
-  ],
-  image: `${NEXT_PUBLIC_URL}/biconomy_orange_centred.png`,
-});
-
-export const metadata: Metadata = {
-  title: "biconomy.io",
-  description: "Account Abstraction",
-  openGraph: {
-    title: "biconomy.io",
-    description: "Account Abstraction",
-    images: [`${NEXT_PUBLIC_URL}/biconomy_orange_centred.png`],
-  },
-  other: {
-    ...frameMetadata,
-  },
+const CONSTANTS = {
+  DASHBOARD_URL: "https://dashboard.biconomy.io",
+  DOCS_URL: "https://dashboard.biconomy.io",
+  IMAGE_URL: "https://frames.biconomy.io/biconomy_orange_centred.png",
 };
 
-export default function Page() {
+export default async function Page(props: {
+  searchParams: { [key: string]: string | string[] | undefined } | undefined;
+}) {
+  const previousFrame = getPreviousFrame(props.searchParams);
+
+  await validateActionSignature(previousFrame.postBody);
+
+  const [state, _dispatch] = useFramesReducer(
+    reducer,
+    { count: 0 },
+    previousFrame,
+  );
+
   return (
     <>
-      <h1>biconomy.io</h1>
+      <FrameContainer
+        postUrl="/account"
+        state={state}
+        previousFrame={previousFrame}
+      >
+        <FrameImage src={CONSTANTS.IMAGE_URL} />
+        <FrameButton href={CONSTANTS.DASHBOARD_URL}>Dashboard</FrameButton>
+        <FrameButton href={CONSTANTS.DOCS_URL}>Docs</FrameButton>
+      </FrameContainer>
     </>
   );
 }
