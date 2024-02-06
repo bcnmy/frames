@@ -21,7 +21,7 @@ export const METADATA: Metadata = {
     siteName: TITLE,
     images: [
       {
-        url: `${URL}/opengraph.png`,
+        url: `${URL}/opengraph.jpg`,
         width: 1200,
         height: 630,
       },
