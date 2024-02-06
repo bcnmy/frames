@@ -12,6 +12,7 @@ const reducer = (state: any) => ({ count: state.count + 1 });
 const CONSTANTS = {
   DASHBOARD_URL: "https://dashboard.biconomy.io",
   DOCS_URL: "https://dashboard.biconomy.io",
+  IMAGE_URL: "https://frames.biconomy.io/biconomy_orange_centred.png",
 };
 
 export default async function Page(props: {
@@ -34,7 +35,7 @@ export default async function Page(props: {
         state={state}
         previousFrame={previousFrame}
       >
-        <FrameImage src="/biconomy_orange_centred.png" />
+        <FrameImage src={CONSTANTS.IMAGE_URL} />
         <FrameButton href={CONSTANTS.DASHBOARD_URL}>Dashboard</FrameButton>
         <FrameButton href={CONSTANTS.DOCS_URL}>Docs</FrameButton>
       </FrameContainer>
