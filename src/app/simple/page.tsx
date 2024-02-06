@@ -22,7 +22,7 @@ export default async function Page(props: {
 
   await validateActionSignature(previousFrame.postBody);
 
-  const [state, dispatch] = useFramesReducer(
+  const [state, _dispatch] = useFramesReducer(
     reducer,
     { count: 0 },
     previousFrame,
@@ -31,7 +31,7 @@ export default async function Page(props: {
   return (
     <>
       <FrameContainer
-        postUrl="https://www.biconomy.io"
+        postUrl="/account"
         state={state}
         previousFrame={previousFrame}
       >
