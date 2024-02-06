@@ -5,12 +5,13 @@ import {
   useFramesReducer,
   getPreviousFrame,
   validateActionSignature,
-  FrameInput,
 } from "frames.js/next/server";
 
-const reducer = (state, action) => ({ count: state.count + 1 });
+const reducer = (state: any) => ({ count: state.count + 1 });
 
-export default async function Page(props) {
+export default async function Page(props: {
+  searchParams: { [key: string]: string | string[] | undefined } | undefined;
+}) {
   const previousFrame = getPreviousFrame(props.searchParams);
 
   await validateActionSignature(previousFrame.postBody);
