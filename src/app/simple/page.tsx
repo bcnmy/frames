@@ -9,6 +9,11 @@ import {
 
 const reducer = (state: any) => ({ count: state.count + 1 });
 
+const CONSTANTS = {
+  DASHBOARD_URL: "https://dashboard.biconomy.io",
+  DOCS_URL: "https://dashboard.biconomy.io",
+};
+
 export default async function Page(props: {
   searchParams: { [key: string]: string | string[] | undefined } | undefined;
 }) {
@@ -25,12 +30,13 @@ export default async function Page(props: {
   return (
     <>
       <FrameContainer
-        postUrl="/frames"
+        postUrl="https://www.biconomy.io"
         state={state}
         previousFrame={previousFrame}
       >
-        <FrameImage src="https://picsum.photos/seed/frames.js/1146/600" />
-        <FrameButton onClick={dispatch}>{state.count}</FrameButton>
+        <FrameImage src="/biconomy_orange_centred.png" />
+        <FrameButton href={CONSTANTS.DASHBOARD_URL}>Dashboard</FrameButton>
+        <FrameButton href={CONSTANTS.DOCS_URL}>Docs</FrameButton>
       </FrameContainer>
     </>
   );
