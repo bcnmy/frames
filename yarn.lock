@@ -1552,10 +1552,10 @@ fraction.js@^4.3.7:
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.3.7.tgz#06ca0085157e42fda7f9e726e79fefc4068840f7"
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
 
-frames.js@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/frames.js/-/frames.js-0.1.0.tgz#596b7beaabbdc065b2e6aed73f71f90adbce47f3"
-  integrity sha512-ZT+hdMxVf2Sov9B7uDUAHpcdtgZNw9xEkrW76vAZwwoMYuEVagtlH4syTux6+IHKHcKEhxj2lrEwbinRpSENdg==
+frames.js@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/frames.js/-/frames.js-0.2.0.tgz#fc27d8f32f64fea18851f302c7845e7a098adbfe"
+  integrity sha512-HsiSZD8MsCMGyMCwoz48Pg4KCnUJsBxe/wbgy4Wwe8mNrEWUD9g/aZ2EpXmBj6zFXw4YOusTXN4HxLLfgylh7A==
   dependencies:
     "@farcaster/core" "^0.13.7"
     cheerio "^1.0.0-rc.12"
