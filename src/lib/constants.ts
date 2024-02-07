@@ -31,4 +31,4 @@ export const METADATA: Metadata = {
   },
 };
 
-export const NEXT_PUBLIC_URL = "https://frame-template.pimlico.io";
+export const NEXT_PUBLIC_URL = "https://frames.biconomy.io";
