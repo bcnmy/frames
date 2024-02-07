@@ -31,14 +31,13 @@ export default async function Page(props: {
   return (
     <>
       <FrameContainer
-        postUrl="/account"
+        postUrl="/frames"
         state={state}
         previousFrame={previousFrame}
       >
         <FrameImage src={CONSTANTS.IMAGE_URL} />
-        <FrameButton redirect>📊 Dashboard</FrameButton>
-        <FrameButton redirect>📄 Docs</FrameButton>
-        <FrameButton href={`https://www.google.com`}>External</FrameButton>
+        <FrameButton href={CONSTANTS.DASHBOARD_URL}>📊 Dashboard</FrameButton>
+        <FrameButton href={CONSTANTS.DOCS_URL}>📄 Docs</FrameButton>
       </FrameContainer>
     </>
   );

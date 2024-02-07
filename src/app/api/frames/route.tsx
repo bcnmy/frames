@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export function POST(req: NextRequest, res: NextResponse) {
   const redirectHandler = (prevFrame: PreviousFrame) => {
     if (prevFrame.postBody?.untrustedData.buttonIndex === 4)
-      return "https://www.framesjs.org";
+      return "https://www.biconomy.io";
   };
 
   return POSTNext(req, res, redirectHandler);
