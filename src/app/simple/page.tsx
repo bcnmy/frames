@@ -38,6 +38,7 @@ export default async function Page(props: {
         <FrameImage src={CONSTANTS.IMAGE_URL} />
         <FrameButton href={CONSTANTS.DASHBOARD_URL}>📊 Dashboard</FrameButton>
         <FrameButton href={CONSTANTS.DOCS_URL}>📄 Docs</FrameButton>
+        <FrameButton href={`https://www.google.com`}>External</FrameButton>
       </FrameContainer>
     </>
   );
