@@ -31,7 +31,7 @@ export default async function Page(props: {
   return (
     <>
       <FrameContainer
-        postUrl="/account"
+        postUrl="/frames"
         state={state}
         previousFrame={previousFrame}
       >
