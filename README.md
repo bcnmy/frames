@@ -1,5 +1,5 @@
 # Frames
-This project is aimed at creating a frame template to deploy a smart account using [Biconomy SDK](https://docs.biconomy.io/).
+This project is aimed at showcasing how to create a smart account using [Biconomy SDK](https://docs.biconomy.io/) within a frame.
 
 **Simple Frame**
 
@@ -32,5 +32,3 @@ This will start the application and you can access it in your web browser at htt
 - src/app/account/page.tsx is used to render the first frame f1 when the frame is loaded.
 - It calls the `/api/account` API to create the smart account, which is mentioned in the account routes. It contains the code to create smart account using the sdk.
 - f1 returns the frame f2, which contains the details about the new smart account created. src/app/og/route.tsx is used to render the f2.
-
-
