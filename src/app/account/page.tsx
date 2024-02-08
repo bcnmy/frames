@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Smart Account Frame Template",
   description: "LFG",
   openGraph: {
-    title: "Smart Account Frame Templatess",
+    title: "Smart Account Frame Templates",
     description: "LFG",
     images: [`${NEXT_PUBLIC_URL}/main.png`],
   },
