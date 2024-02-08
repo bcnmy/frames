@@ -40,10 +40,10 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     bundlerUrl,
     index: fid
   });
-
+  const scwAddress = await smartAccount.getAccountAddress();
 
   return NextResponse.redirect(
-    `https://sepolia.etherscan.io/address/${account.address}`,
+    `https://sepolia.etherscan.io/address/${scwAddress}`,
     { status: 302 },
   );
 }
