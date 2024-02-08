@@ -36,7 +36,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const bundlerUrl =
     "https://bundler.biconomy.io/api/v2/11155111/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44"; // Found at https://dashboard.biconomy.io
 
-  const account = privateKeyToAccount(`0x${privateKey}`);
+  //@ts-ignore
+  const account = privateKeyToAccount(privateKey);
   const client = createWalletClient({
     account,
     chain: sepolia,

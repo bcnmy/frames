@@ -25,7 +25,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     return new NextResponse("Invalid Frame message", { status: 400 });
   }
   const fid = message.interactor.fid;
-  const account = privateKeyToAccount(`0x${privateKey}`);
+  //@ts-ignore
+  const account = privateKeyToAccount(privateKey);
   const bundlerUrl =
     "https://bundler.biconomy.io/api/v2/11155111/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44"; // Found at https://dashboard.biconomy.io
 
