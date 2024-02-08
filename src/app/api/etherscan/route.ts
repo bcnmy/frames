@@ -25,6 +25,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     return new NextResponse("Invalid Frame message", { status: 400 });
   }
   const fid = message.interactor.fid;
+  
   //@ts-ignore
   const account = privateKeyToAccount(privateKey);
   const bundlerUrl =
