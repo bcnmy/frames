@@ -40,12 +40,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   const accountAddress = message.interactor.verified_accounts[0] as Address;
-
+  const fid = message.interactor.fid;
   // send transaction
   const account = await privateKeyToBiconomySmartAccount(publicClient, {
     privateKey: privateKey as Address,
     entryPoint: "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789", // global entrypoint
-    // index: i++
+    index: BigInt(fid)
   });
 
   const smartAccountClient = createSmartAccountClient({

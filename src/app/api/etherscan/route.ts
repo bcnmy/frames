@@ -21,10 +21,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   if (!message) {
     return new NextResponse("Invalid Frame message", { status: 400 });
   }
-
+  const fid = message.interactor.fid;
   const account = await privateKeyToBiconomySmartAccount(publicClient, {
     privateKey: privateKey as Hash,
     entryPoint: "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+    index: BigInt(fid)
   });
 
   return NextResponse.redirect(
