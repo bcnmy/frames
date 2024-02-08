@@ -5,25 +5,13 @@ import {
   getFrameMessage,
 } from "@coinbase/onchainkit";
 import { NextRequest, NextResponse } from "next/server";
-import { bundlerActions, createSmartAccountClient } from "permissionless";
-import { privateKeyToBiconomySmartAccount } from "permissionless/accounts";
-import { pimlicoBundlerActions } from "permissionless/actions/pimlico";
-import { createPimlicoPaymasterClient } from "permissionless/clients/pimlico";
-import { Address, createPublicClient, http } from "viem";
+import { Address, createWalletClient, http } from "viem";
 import { sepolia } from "viem/chains";
+import { createSmartAccountClient, PaymasterMode } from "@biconomy-devx/account";
+import { privateKeyToAccount } from "viem/accounts";
 
 const privateKey = process.env.PRIVATE_KEY!;
-const apiKey = process.env.PIMLICO_API_KEY!;
-const paymasterUrl = `https://api.pimlico.io/v2/sepolia/rpc?apikey=${apiKey}`;
-const bundlerUrl = `https://api.pimlico.io/v1/sepolia/rpc?apikey=${apiKey}`;
-
-const publicClient = createPublicClient({
-  transport: http("https://rpc.ankr.com/eth_sepolia"),
-});
-
-const paymasterClient = createPimlicoPaymasterClient({
-  transport: http(paymasterUrl),
-});
+const paymasterApiKey = process.env.PAYMASTER_API_KEY!;
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
@@ -42,39 +30,42 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const accountAddress = message.interactor.verified_accounts[0] as Address;
   const fid = message.interactor.fid;
   // send transaction
-  const account = await privateKeyToBiconomySmartAccount(publicClient, {
-    privateKey: privateKey as Address,
-    entryPoint: "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789", // global entrypoint
-    index: BigInt(fid)
-  });
+  const bundlerUrl =
+  "https://bundler.biconomy.io/api/v2/11155111/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44"; // Found at https://dashboard.biconomy.io
 
-  const smartAccountClient = createSmartAccountClient({
+  //@ts-ignore
+  const account = privateKeyToAccount(privateKey);
+  const client = createWalletClient({
     account,
     chain: sepolia,
-    transport: http(bundlerUrl),
-    sponsorUserOperation: paymasterClient.sponsorUserOperation,
-  })
-    .extend(bundlerActions)
-    .extend(pimlicoBundlerActions);
+    transport: http(),
+  });
+  const eoa = client.account.address;
+  console.log(`EOA address: ${eoa}, connected address ${accountAddress}`);
 
-  const callData = await account.encodeCallData({
+  // ------ 2. Create biconomy smart account instance
+  const smartAccount = await createSmartAccountClient({
+    signer: client,
+    bundlerUrl,
+    biconomyPaymasterApiKey: paymasterApiKey,
+    index: fid
+  });
+  const scwAddress = await smartAccount.getAccountAddress();
+  console.log("SCW Address", scwAddress);
+
+  const transaction = {
     to: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
     data: "0x1234",
     value: BigInt(0),
-  });
+  };
 
-  const userOperation = await smartAccountClient.prepareUserOperationRequest({
-    userOperation: {
-      callData,
+  const userOpResponse = await smartAccount.sendTransaction(transaction, {
+    paymasterServiceData:{
+      mode: PaymasterMode.SPONSORED
     },
   });
-
-  userOperation.signature = await account.signUserOperation(userOperation);
-
-  const userOpHash = await smartAccountClient.sendUserOperation({
-    userOperation,
-    entryPoint: "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
-  });
+  const { transactionHash } = await userOpResponse.waitForTxHash();
+  console.log("Transaction Hash", transactionHash);
 
   return new NextResponse(
     getFrameHtmlResponse({
@@ -84,7 +75,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           action: "post_redirect",
         },
       ],
-      image: `${NEXT_PUBLIC_URL}/api/og?address=${account.address}&fid=${message.interactor.fid}&userOpHash=${userOpHash}`,
+      image: `${NEXT_PUBLIC_URL}/api/og?address=${account.address}&fid=${message.interactor.fid}&userOpHash=${transactionHash}`,
       post_url: `${NEXT_PUBLIC_URL}/api/etherscan`,
     }),
   );
