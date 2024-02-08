@@ -52,10 +52,7 @@ export async function GET(request: Request) {
             Your smart account has been deployed (might take a minute to show up
             as indexed on Etherscan)
           </div>
-          <div style={{ display: "flex" }}>
-            Source code:
-            https://github.com/pimlicolabs/smart-account-frame-template
-          </div>
+          
         </div>
       ),
       {
