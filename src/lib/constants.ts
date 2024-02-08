@@ -30,3 +30,5 @@ export const METADATA: Metadata = {
     type: "website",
   },
 };
+
+export const NEXT_PUBLIC_URL = "https://frames-git-smart-account-template-bcnmy.vercel.app";
