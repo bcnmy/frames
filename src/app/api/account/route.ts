@@ -75,7 +75,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           action: "post_redirect",
         },
       ],
-      image: `${NEXT_PUBLIC_URL}/api/og?address=${account.address}&fid=${message.interactor.fid}&userOpHash=${transactionHash}`,
+      image: `${NEXT_PUBLIC_URL}/api/og?address=${scwAddress}&fid=${message.interactor.fid}&userOpHash=${transactionHash}`,
       post_url: `${NEXT_PUBLIC_URL}/api/etherscan`,
     }),
   );
