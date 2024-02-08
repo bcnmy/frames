@@ -5,12 +5,15 @@ import {
   getFrameMessage,
 } from "@coinbase/onchainkit";
 import { NextRequest, NextResponse } from "next/server";
-import { Address, createWalletClient, http } from "viem";
+import { Address, createWalletClient, http, Hex } from "viem";
 import { sepolia } from "viem/chains";
-import { createSmartAccountClient, PaymasterMode } from "@biconomy-devx/account";
+import {
+  createSmartAccountClient,
+  PaymasterMode,
+} from "@biconomy-devx/account";
 import { privateKeyToAccount } from "viem/accounts";
 
-const privateKey = process.env.PRIVATE_KEY!;
+const privateKey = process.env.PRIVATE_KEY! as Hex;
 const paymasterApiKey = process.env.PAYMASTER_API_KEY!;
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
@@ -31,9 +34,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const fid = message.interactor.fid;
   // send transaction
   const bundlerUrl =
-  "https://bundler.biconomy.io/api/v2/11155111/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44"; // Found at https://dashboard.biconomy.io
+    "https://bundler.biconomy.io/api/v2/11155111/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44"; // Found at https://dashboard.biconomy.io
 
-  //@ts-ignore
   const account = privateKeyToAccount(privateKey);
   const client = createWalletClient({
     account,
@@ -48,7 +50,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     signer: client,
     bundlerUrl,
     biconomyPaymasterApiKey: paymasterApiKey,
-    index: fid
+    index: fid,
   });
   const scwAddress = await smartAccount.getAccountAddress();
   console.log("SCW Address", scwAddress);
@@ -60,8 +62,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   };
 
   const userOpResponse = await smartAccount.sendTransaction(transaction, {
-    paymasterServiceData:{
-      mode: PaymasterMode.SPONSORED
+    paymasterServiceData: {
+      mode: PaymasterMode.SPONSORED,
     },
   });
   const { transactionHash } = await userOpResponse.waitForTxHash();
