@@ -3,22 +3,22 @@ This project is aimed at showcasing how to create a smart account using [Biconom
 
 **Simple Frame**
 
-link: https://frames.biconomy.io/simple
+Access the simple frame at: https://frames.biconomy.io/simple
 
-A simple frame to showcase the button clicks that redirects you to the biconomy documentation and dashboard.
+This frame provides a basic demonstration of button clicks that redirect users to the Biconomy documentation and dashboard.
 
 **Smart Account creation frame**
 
-link: https://frames.biconomy.io/account
+Access the smart account creation frame at: https://frames.biconomy.io/account
 
-This frame creates a smart account for a given farcaster id using a common signer. you can also access the created smart account with the link provided in the next frame. It uses biconomy paymaster to sponsor the transaction.
+This frame facilitates the creation of a smart account for a specified farcaster ID using a common signer. You can also access the newly created smart account through the link provided in the subsequent frame. The process utilizes the Biconomy paymaster to sponsor the transaction.
 
-This template requires following environment variables.
-- NEYNAR_API_KEY: the API key to interact with frames messages.
-- PRIVATE_KEY: private key of the common signer. you can also use a signer of your own.
-- PAYMASTER_API_KEY: Biconomy paymaster API key to deploy the smart account. You can get your Paymaster URL from the Biconomy [Dashboard](https://dashboard.biconomy.io/).
+To use this template, you need to set the following environment variables:
+- NEYNAR_API_KEY: API key for interacting with Frames messages.
+- PRIVATE_KEY: Private key of the common signer. Alternatively, you can use your own signer.
+- PAYMASTER_API_KEY: Biconomy paymaster API key for deploying the smart account. You can obtain your Paymaster URL from the Biconomy [Dashboard](https://dashboard.biconomy.io/).
 
-Use the following commands to run it.
+Use the following commands to run the application:
 
 ```bash
 yarn install
@@ -27,8 +27,8 @@ yarn run dev
 
 This will start the application and you can access it in your web browser at http://localhost:3000 (or a different port if specified).
 
-**Further details**
+**Additional Details**
 
-- src/app/account/page.tsx is used to render the first frame f1 when the frame is loaded.
-- It calls the `/api/account` API to create the smart account, which is mentioned in the account routes. It contains the code to create smart account using the sdk.
-- f1 returns the frame f2, which contains the details about the new smart account created. src/app/og/route.tsx is used to render the f2.
+- The file src/app/account/page.tsx is responsible for rendering the initial frame (f1) when the frame is loaded.
+- It calls the `/api/account` API to create the smart account, as specified in the account routes. This contains the code for creating the smart account using the SDK.
+- `f1` returns the frame `f2`, which includes details about the newly created smart account. The file src/app/og/route.tsx is used to render f2.
