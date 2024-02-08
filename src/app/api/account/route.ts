@@ -53,6 +53,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     biconomyPaymasterApiKey: paymasterApiKey,
     index: fid,
   });
+  
   const scwAddress = await smartAccount.getAccountAddress();
   console.log("SCW Address", scwAddress);
 
