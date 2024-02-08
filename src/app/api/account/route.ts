@@ -5,7 +5,7 @@ import {
   getFrameMessage,
 } from "@coinbase/onchainkit";
 import { NextRequest, NextResponse } from "next/server";
-import { Address, createWalletClient, http } from "viem";
+import { Address, Hex,  createWalletClient, encodeFunctionData, http, parseAbi, } from "viem";
 import { sepolia } from "viem/chains";
 import {
   createSmartAccountClient,
@@ -56,17 +56,25 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const scwAddress = await smartAccount.getAccountAddress();
   console.log("SCW Address", scwAddress);
 
-  const transaction = {
-    to: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
-    data: "0x1234",
-    value: BigInt(0),
-  };
-
-  const userOpResponse = await smartAccount.sendTransaction(transaction, {
-    paymasterServiceData: {
-      mode: PaymasterMode.SPONSORED,
-    },
+  const nftAddress = "0x1758f42Af7026fBbB559Dc60EcE0De3ef81f665e";
+  const parsedAbi = parseAbi(["function safeMint(address _to)"]);
+  const nftData = encodeFunctionData({
+    abi: parsedAbi,
+    functionName: "safeMint",
+    args: [scwAddress as Hex],
   });
+
+
+  const userOpResponse = await smartAccount.sendTransaction({
+      to: nftAddress,
+      data: nftData,
+    }, 
+    {
+      paymasterServiceData: {
+        mode: PaymasterMode.SPONSORED,
+      },
+    }
+  );
   const { transactionHash } = await userOpResponse.waitForTxHash();
   console.log("Transaction Hash", transactionHash);
 
