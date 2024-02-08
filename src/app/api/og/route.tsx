@@ -41,7 +41,10 @@ export async function GET(request: Request) {
           }}
         >
           <div style={{ display: "flex" }}>
-            User Operation hash: {userOpHash}
+            User Operation hash:
+          </div>
+          <div style={{ display: "flex" }}>
+          {userOpHash}
           </div>
           <div style={{ display: "flex" }}>
             Smart Account Address: {address}
