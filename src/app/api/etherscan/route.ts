@@ -1,7 +1,10 @@
 import { FrameRequest, getFrameMessage } from "@coinbase/onchainkit";
 import { NextRequest, NextResponse } from "next/server";
-import { privateKeyToBiconomySmartAccount } from "permissionless/accounts";
-import { Hash, createPublicClient, http } from "viem";
+import { Hash, createPublicClient } from "viem";
+import { createSmartAccountClient } from "@biconomy-devx/account";
+import { Address, createWalletClient, http } from "viem";
+import { sepolia } from "viem/chains";
+import { privateKeyToAccount } from "viem/accounts";
 
 const privateKey = process.env.PRIVATE_KEY!;
 const publicClient = createPublicClient({
@@ -22,11 +25,22 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     return new NextResponse("Invalid Frame message", { status: 400 });
   }
   const fid = message.interactor.fid;
-  const account = await privateKeyToBiconomySmartAccount(publicClient, {
-    privateKey: privateKey as Hash,
-    entryPoint: "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
-    index: BigInt(fid)
+    //@ts-ignore
+  const account = privateKeyToAccount(privateKey);
+  const bundlerUrl =
+  "https://bundler.biconomy.io/api/v2/11155111/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44"; // Found at https://dashboard.biconomy.io
+
+  const client = createWalletClient({
+    account,
+    chain: sepolia,
+    transport: http(),
   });
+  const smartAccount = await createSmartAccountClient({
+    signer: client,
+    bundlerUrl,
+    index: fid
+  });
+
 
   return NextResponse.redirect(
     `https://sepolia.etherscan.io/address/${account.address}`,
