@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@biconomy-devx/account": "^2.2.14",
+    "@biconomy/account": "^4.0.0",
     "@coinbase/onchainkit": "^0.4.1",
     "@vercel/analytics": "^1.1.3",
     "frames.js": "^0.2.0",

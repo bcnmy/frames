@@ -10,7 +10,7 @@ import { sepolia } from "viem/chains";
 import {
   createSmartAccountClient,
   PaymasterMode,
-} from "@biconomy-devx/account";
+} from "@biconomy/account";
 import { privateKeyToAccount } from "viem/accounts";
 
 const privateKey = process.env.PRIVATE_KEY!;

@@ -1,7 +1,7 @@
 import { FrameRequest, getFrameMessage } from "@coinbase/onchainkit";
 import { NextRequest, NextResponse } from "next/server";
 import { Hash, createPublicClient } from "viem";
-import { createSmartAccountClient } from "@biconomy-devx/account";
+import { createSmartAccountClient } from "@biconomy/account";
 import { Address, createWalletClient, http } from "viem";
 import { sepolia } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
