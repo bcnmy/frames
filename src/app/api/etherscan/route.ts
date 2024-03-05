@@ -10,18 +10,19 @@ const privateKey = process.env.PRIVATE_KEY!;
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const body: FrameRequest = await req.json();
-  const { isValid, message } = await getFrameMessage(body, {
-    neynarApiKey: process.env.NEYNAR_API_KEY!,
-  });
+    const { fid, messageHash } = body.untrustedData
+  // const { isValid, message } = await getFrameMessage(body, {
+  //   neynarApiKey: process.env.NEYNAR_API_KEY!,
+  // });
 
-  if (isValid === false) {
+  // if (isValid === false) {
+  //   return new NextResponse("Invalid Frame message", { status: 400 });
+  // }
+
+  if (!messageHash) {
     return new NextResponse("Invalid Frame message", { status: 400 });
   }
-
-  if (!message) {
-    return new NextResponse("Invalid Frame message", { status: 400 });
-  }
-  const fid = message.interactor.fid;
+  // const fid = message.interactor.fid;
   
   //@ts-ignore
   const account = privateKeyToAccount(privateKey);
