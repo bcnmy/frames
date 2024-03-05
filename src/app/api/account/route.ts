@@ -6,7 +6,7 @@ import {
 } from "@coinbase/onchainkit";
 import { NextRequest, NextResponse } from "next/server";
 import { Address, Hex,  createWalletClient, encodeFunctionData, http, parseAbi, } from "viem";
-import { polygonMumbai } from "viem/chains";
+import { sepolia } from "viem/chains";
 import {
   createSmartAccountClient,
   PaymasterMode,
@@ -17,7 +17,6 @@ const privateKey = process.env.PRIVATE_KEY!;
 const paymasterApiKey = process.env.PAYMASTER_API_KEY!;
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  console.log("1")
   const body: FrameRequest = await req.json();
   const { fid, messageHash } = body.untrustedData
   // const { isValid, message } = await getFrameMessage(body, {
@@ -37,13 +36,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   // console.log("3", accountAddress, fid)
   // send transaction
   const bundlerUrl =
-    "https://bundler.biconomy.io/api/v2/80001/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44"; // Found at https://dashboard.biconomy.io
+    "https://bundler.biconomy.io/api/v2/11155111/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44"; // Found at https://dashboard.biconomy.io
 
   //@ts-ignore
   const account = privateKeyToAccount(privateKey);
   const client = createWalletClient({
     account,
-    chain: polygonMumbai,
+    chain: sepolia,
     transport: http(),
   });
   const eoa = client.account.address;
