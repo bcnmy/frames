@@ -17,11 +17,12 @@ const privateKey = process.env.PRIVATE_KEY!;
 const paymasterApiKey = process.env.PAYMASTER_API_KEY!;
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
+  console.log("1")
   const body: FrameRequest = await req.json();
   const { isValid, message } = await getFrameMessage(body, {
     neynarApiKey: process.env.NEYNAR_API_KEY!,
   });
-
+  console.log("2", isValid, message)
   if (!isValid) {
     return new NextResponse("Invalid Frame message", { status: 400 });
   }
@@ -32,6 +33,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   const accountAddress = message.interactor.verified_accounts[0] as Address;
   const fid = message.interactor.fid;
+  console.log("3", accountAddress, fid)
   // send transaction
   const bundlerUrl =
     "https://bundler.biconomy.io/api/v2/11155111/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44"; // Found at https://dashboard.biconomy.io
