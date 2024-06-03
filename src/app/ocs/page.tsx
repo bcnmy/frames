@@ -1,6 +1,4 @@
 import { fetchMetadata } from "frames.js/next";
-import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount, useChainId, useConfig } from "wagmi";
 
 export async function generateMetadata() {
 
