@@ -6,10 +6,10 @@ export const POST = frames(async (ctx) => {
   return{
     image: "../2.jpeg", // foo: bar
     buttons: [
-      <Button action="post" target="/part2">
+      <Button key={1} action="post" target="/part2">
       Next
       </Button>,
-      <Button action="post" target="/">
+      <Button key={2} action="post" target="/">
       Go back
       </Button>
     ],
