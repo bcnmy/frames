@@ -7,5 +7,5 @@ export function POST(req: NextRequest, res: NextResponse) {
       return "https://www.biconomy.io";
   };
 
-  return POSTNext(req, res, redirectHandler);
+  return POSTNext(req, res as any, redirectHandler);
 }

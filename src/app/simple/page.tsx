@@ -36,8 +36,8 @@ export default async function Page(props: {
         previousFrame={previousFrame}
       >
         <FrameImage src={CONSTANTS.IMAGE_URL} />
-        <FrameButton href={CONSTANTS.DASHBOARD_URL}>📊 Dashboard</FrameButton>
-        <FrameButton href={CONSTANTS.DOCS_URL}>📄 Docs</FrameButton>
+        <FrameButton target={CONSTANTS.DASHBOARD_URL}>📊 Dashboard</FrameButton>
+        <FrameButton target={CONSTANTS.DOCS_URL}>📄 Docs</FrameButton>
       </FrameContainer>
     </>
   );
